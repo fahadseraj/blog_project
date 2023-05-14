@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>{% if post.meta_title%} {{post.meta_title}} {%else%}  {{post.title}} {%endif%}</title>
+<meta name="description" content={% if post.meta_description %} {{post.meta_description}} {%else%}  {{post.content |truncatewords:50}} {%endif%} />
+{% endblock head %}
+{% block content  %}
+ 
+<div class="container my-3">
+    <div class="row py-3">
+        <div class="col-md-9">
+            <h1 class="h3">
+                {{post.title}}
+            </h1>
+            <!-- Breadcumb -->
+         
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a class="text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                  <li class="breadcrumb-item"><a class="text-decoration-none" href="#">{{post.Category.title}}</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{post.title}}</li>
+                </ol>
+              </nav>
+              <hr>
+              <div class="py-3">
+                <img src="{{post.featured.url}}" class="card-img-top" alt="...">
+              </div>
+              <div class="my-3">
+                {{post.content}}
+                 
+              </div>
+              <div>
+
+                last Updated : {{post.updated}}
+
+              </div>
+       
+              <div class="btn-group py-3" role="group" aria-label="Share buttons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="btn btn-primary">
+                  <i class="fab fa-facebook-f"></i> Share on Facebook
+                </a>
+                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.title }}" class="btn btn-info">
+                  <i class="fab fa-twitter"></i> Share on Twitter
+                </a>
+                <a href="https://plus.google.com/share?url={{ request.build_absolute_uri }}" class="btn btn-danger">
+                  <i class="fab fa-google-plus-g"></i> Share on Google+
+                </a>
+                <a href="mailto:?subject={{ post.title }}&amp;body={{ request.build_absolute_uri }}" class="btn btn-secondary">
+                  <i class="fas fa-envelope"></i> Share via Email
+                </a>
+              </div>
+        </div>
+        <div class="col-md-3">
+            Sidebar
+        </div>
+
+    </div>
+</div>
+
+{% endblock content  %}
